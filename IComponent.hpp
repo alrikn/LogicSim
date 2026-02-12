@@ -3,6 +3,7 @@
 ** bootstrap_nanotekspice
 ** File description:
 ** Icomponent
+** do not touch this file, it is already perfect
 */
 
 #ifndef INCLUDED_ICOMPONENT_HPP

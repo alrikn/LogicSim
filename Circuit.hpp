@@ -30,7 +30,7 @@ class Circuit {
             return components[name];
         }
 
-        void simulate(std::size_t tick) {
+        void simulate(std::size_t tick) { // there should probably be an order of execution
             for (auto &c : components)
                 c.second->simulate(tick);
         }
