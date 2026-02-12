@@ -7,6 +7,7 @@
 
 #include "HashMapCache.hpp"
 #include <cassert>
+#include <unordered_map>
 
 namespace nts {
 
