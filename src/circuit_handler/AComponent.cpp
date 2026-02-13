@@ -13,7 +13,7 @@
 // UserOutputTypes and logOutput types will have to overwrite this func as they have their own separate logic
 void nts::AComponent::simulate(size_t tick)
 {
-    for (std::pair<const unsigned long, nts::Class_type> link_type : component_links) {
+    for (std::pair<const unsigned long, nts::PinType> link_type : component_links) {
         if (link_type.second == InputType)
             getLink(link_type.first);
     }
@@ -35,7 +35,7 @@ nts::Tristate nts::AComponent::getLink(size_t pin)
     return compute_hashmap(da_link.component, da_link.pin); //compute takes as an input the supposed return pin
 }
 
-nts::Class_type nts::AComponent::get_type(size_t pin)
+nts::PinType nts::AComponent::get_type(size_t pin)
 {
     if (component_links.count(pin) == 0)
         return UndefinedType;

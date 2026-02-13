@@ -12,7 +12,7 @@ namespace nts {
 
 
 
-void Circuit::addComponent(std::string name, std::unique_ptr<IComponent> c, Class_type type)
+void Circuit::addComponent(std::string name, std::unique_ptr<IComponent> c, PinType type)
 {
     if (components.count(name) >= 1)
         throw std::runtime_error("Component already exists");
@@ -28,14 +28,19 @@ std::unique_ptr<IComponent> &Circuit::getComponent(std::string const &name)
 
 void Circuit::simulate(std::size_t tick) { // there should probably be an order of execution
     g_current_tick = tick;
+    //we should keep track of the specialuser outputs like the output or logger keyword and execute them separately here
     for (auto &c : components)
         c.second.component->simulate(tick);
 }
 
-Class_type Circuit::getType(const std::string& name)
+PinType Circuit::getType(const std::string& name)
 {
     return components.at(name).type;
 }
 
+void Circuit::display()
+{
 
-    }
+}
+
+}

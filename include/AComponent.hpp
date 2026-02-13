@@ -25,7 +25,7 @@ class AComponent : public virtual IComponent
         //index of map is gonna be our pin, and holds other pin as well as ref to other component
         std::map<size_t, Link> _links; //just make a map of links
 
-        std::map<size_t, Class_type> component_links = {{1, UndefinedType}};
+        std::map<size_t, PinType> component_links = {{1, UndefinedType}};
 
     public:
         AComponent() = default;
@@ -41,7 +41,7 @@ class AComponent : public virtual IComponent
 
         nts::Tristate getLink(size_t pin);
 
-        Class_type get_type(size_t pin); //gets the pin from the component link
+        PinType get_type(size_t pin); //gets the pin from the component link
 };
 }
 
