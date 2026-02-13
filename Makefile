@@ -7,20 +7,23 @@
 
 NAME = nanotekspice
 SRC = main.cpp	\
-	HashMapCache.cpp \
+	src/circuit_handler/HashMapCache.cpp \
+	src/circuit_handler/Circuit.cpp \
+	src/components/AndComponent.cpp \
 
 
 OBJ = $(SRC:.cpp=.o)
 CXX = clang++
 CXXFLAGS = -std=c++20 -Wall -Wextra -g
+CPPFLAGS = -I include
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJ)
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -o $(NAME) $(OBJ)
 
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ)
