@@ -16,7 +16,7 @@ size_t g_current_tick = 0;
 //static map
 static std::unordered_map<CacheKey, CacheEntry, CacheKeyHash> cache;
 
-nts::Tristate compute_cached(nts::IComponent* comp, std::size_t pin)
+nts::Tristate compute_hashmap(nts::IComponent* comp, size_t pin)
 {
     if (!comp)
         return Undefined;
@@ -36,7 +36,7 @@ nts::Tristate compute_cached(nts::IComponent* comp, std::size_t pin)
     entry.state = CS_InProgress;
 
     //we call the real comput which will call getLink, which will call compute_cached
-    nts::Tristate result = comp->compute(pin);
+    Tristate result = comp->compute(pin);
 
     //da result
     entry.value = result;

@@ -7,6 +7,7 @@
 
 NAME = nanotekspice
 SRC = main.cpp	\
+	HashMapCache.cpp \
 
 
 OBJ = $(SRC:.cpp=.o)
