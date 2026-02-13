@@ -48,7 +48,7 @@ nts::Component4071::Component4071()
 
     or1.setLink(1, *this, 1);
     or1.setLink(2, *this, 2);
-    or1.setLink(3, *this, 3);
+    or1.setLink(3, *this, 3); //the outputs are technically useless
 
     //OR2 -> pins 5,6 -> 4
     or2.setLink(1, *this, 5);
