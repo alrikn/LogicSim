@@ -70,6 +70,9 @@ nts::Component4071::Component4071()
 nts :: Tristate nts::Component4071::compute ( std :: size_t pin )
 {
     switch (pin) {
+        //because we are linking the child components together, as they are asking us for intel, which we provide
+        case 1: case 2: case 5: case 6: case 8: case 9: case 12: case 13:
+            return getLink(pin);
         case 3:
             return or1.compute(3);
         case 4:
