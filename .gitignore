@@ -4,3 +4,4 @@
 nanotekspice
 *.a
 *.log
+*.tmp
