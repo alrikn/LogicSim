@@ -19,19 +19,32 @@ class Parser
     private:
     protected:
         Circuit circuit;
+
         bool found_links = false;
         bool found_chipsets = false;
+
         std::string file_path;
         std::ifstream file_ptr;
-        std::stringstream curr_line;
+
+        std::string trim(const std::string &line);
+        bool is_comment_or_empty(const std::string &line);
+
+        // parse lines
+        void parse_chipset_line();
+        void parse_link_line();
+
+        // sections
+        void parse_chipsets();
+        void parse_links();
+
 
     public:
-        Parser(Circuit circuit, std::string file);
-        void parse_chipset();
-        void parse_link();
-        bool check_empty();
+        Parser(const std::string& file);
         void run_parser();
-        void GetNextLine();
+
+        //built circuit
+        Circuit &getCircuit();
+
         ~Parser() = default;
 
 };
