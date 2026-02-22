@@ -7,6 +7,11 @@
 */
 
 #include "Parser.hpp"
+#include "Component4001.hpp"
+#include "TrueComponent.hpp"
+#include "FalseComponent.hpp"
+#include "UserInputComponent.hpp"
+#include "UserOutputComponent.hpp"
 #include <csignal>
 #include <fstream>
 #include <sstream>
@@ -41,10 +46,24 @@ static std::vector<std::string> split_ws(const std::string &s)
 }
 
 // factory
-
 static std::pair<std::unique_ptr<nts::IComponent>, nts::ClassType> create_component_by_type(const std::string &type)
 {
+    // 'using' -> alias for complex type
+    using Pair = std::pair<std::unique_ptr<nts::IComponent>, nts::ClassType>;
 
+    //FILL W/ REST OF COMPONENTS!!!!
+    static const std::unordered_map<std::string, std::function<Pair()>> factory = {
+        {"input", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::UserInputComponent()), nts::InDisplayComponent); }},
+        {"output", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::UserOutputComponent()), nts::OutDisplayComponent); }},
+        {"true", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::TrueComponent()), nts::InDisplayComponent); }},
+        {"false", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::FalseComponent()), nts::InDisplayComponent); }},
+        {"4001", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4001()), nts::NormalComponent); }}
+    };
+
+    auto it = factory.find(type);
+    if (it == factory.end())
+        throw std::runtime_error("Unknown component type '" + type + "'.");
+    return it->second();
 }
 
 nts::Parser::Parser(const std::string &file) : file_path(file), file_ptr(file)
@@ -87,8 +106,10 @@ void nts::Parser::parse_chipset_line(const std::string &line)
     auto created = create_component_by_type(type);
 
     try {
+        // std::move transfers ownership to addComponent since created.first is a
+        //unique pointer and cant be copied, just moved
         circuit.addComponent(name, std::move(created.first), created.second);
-    } catch (const std::exception &e) {
+    } catch (const std::exception &e) { // if addComponent throws exception
         throw std::runtime_error(std::string("Failed to add component '") + name + "': " + e.what());
     }
 }
