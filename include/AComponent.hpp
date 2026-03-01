@@ -12,6 +12,7 @@
 #include "IComponent.hpp"
 #include <cstddef>
 #include <map>
+#include <vector>
 namespace nts {
 class AComponent : public virtual IComponent
 {
@@ -23,8 +24,8 @@ class AComponent : public virtual IComponent
         };
 
         //index of map is gonna be our pin, and holds other pin as well as ref to other component
-        std::map<size_t, Link> _links; //just make a map of links
-
+        //std::map<size_t, Link> _links; //just make a map of links
+        std::map<size_t, std::vector<Link>> _links; //cus one output pin can be connected to multiple input pin
         std::map<size_t, PinType> component_links = {{1, UndefinedType}};
 
     public:
