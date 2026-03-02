@@ -18,6 +18,7 @@ namespace nts {
 class ClockComponent  : public virtual ASpecialComponent
 {
     private:
+        size_t last_tick = 0;
     protected:
     public:
         //ClockComponent();

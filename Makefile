@@ -12,6 +12,7 @@ SRC = main.cpp	\
 	src/components/AComponent.cpp \
 	src/components/AGateComponent.cpp \
 	src/components/elementary_components/AndComponent.cpp \
+	src/components/elementary_components/LoggerComponent.cpp \
 	src/components/elementary_components/NandComponent.cpp \
 	src/components/elementary_components/NotComponent.cpp \
 	src/components/elementary_components/NorComponent.cpp \

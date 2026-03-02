@@ -16,6 +16,7 @@
 #include "Component4081.hpp"
 #include "TrueComponent.hpp"
 #include "AndComponent.hpp"
+#include "LoggerComponent.hpp"
 #include "XorComponent.hpp"
 #include "NotComponent.hpp"
 #include "ClockComponent.hpp" //Included header ClockComponent.hpp is not used directly (fixes available)clangdunused-includes
@@ -77,6 +78,7 @@ static std::pair<std::unique_ptr<nts::IComponent>, nts::ClassType> create_compon
         {"or", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::OrComponent()), nts::NormalComponent); }},
         {"xor", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::XorComponent()), nts::NormalComponent); }},
         {"not", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::NotComponent()), nts::NormalComponent); }},
+        {"logger", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::LoggerComponent()), nts::NormalComponent); }},
         //TODO:logger
         //gate components
         {"4001", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4001()), nts::NormalComponent); }},

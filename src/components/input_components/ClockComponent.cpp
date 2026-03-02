@@ -20,19 +20,23 @@ nts::ClockComponent::ClockComponent()
 //since we need the entire component to run and update itself for the display (this will be the same thing for Logger and possibly UserInput)
 void nts::ClockComponent::simulate(size_t tick)
 {
-    compute(1); //because on first call of sim ulate it must return the one it showed
-    if (real_value != Undefined) {
-        if (real_value == True)
-            real_value = False;
-        else
-            real_value = True;
+    if (tick == last_tick)
+        return;
+
+    last_tick = tick;
+
+    //we update the one on previous tick
+    display_value = real_value;
+
+    // toggle AFTER snapshot
+    if (real_value != nts::Undefined) {
+        real_value = (real_value == nts::True) ? nts::False : nts::True;
     }
 }
 
 nts :: Tristate nts::ClockComponent::compute(size_t pin)
 {
-    display_value = real_value;
     if (pin == 1)
-        return real_value;
-    return Undefined;
+        return display_value;
+    return nts::Undefined;
 }
