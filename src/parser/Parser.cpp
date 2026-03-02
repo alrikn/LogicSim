@@ -36,6 +36,7 @@
 
 //advanced
 #include "Component4008.hpp"
+#include "Component4512.hpp"
 
 //helpers
 
@@ -90,6 +91,7 @@ static std::pair<std::unique_ptr<nts::IComponent>, nts::ClassType> create_compon
         {"4081", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4081()), nts::NormalComponent); }},
         //advanced components
         {"4008", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4008()), nts::NormalComponent); }},
+        {"4512", []() { return Pair(std::unique_ptr<nts::IComponent>(new nts::Component4512()), nts::NormalComponent); }},
     };
 
     auto it = factory.find(type);
