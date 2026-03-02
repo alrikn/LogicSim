@@ -22,7 +22,7 @@ enum CmdType {
 class CLI_interface
 {
     private:
-        long long tick = 0;
+        long long tick = -1;
     protected:
     public:
 

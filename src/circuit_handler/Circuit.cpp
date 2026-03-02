@@ -8,6 +8,7 @@
 #include "Circuit.hpp"
 #include "ASpecialComponent.hpp"
 #include "HashMapCache.hpp"
+#include <iostream>
 
 namespace nts {
 
@@ -55,6 +56,7 @@ std :: ostream & operator <<( std :: ostream & s , nts :: Tristate v)
 
 void Circuit::display()
 {
+    std::cout << "tick: " << g_current_tick << std::endl;
     std::cout << "input(s):" << std::endl;
     //the component are stored as IComponents (grandfather class that is virtual)
     for (auto &c : components)
