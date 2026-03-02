@@ -91,5 +91,7 @@ nts::PinType nts::AComponent::get_type(size_t pin)
 //this will be default behaviour
 nts::Tristate nts::AComponent::compute(std::size_t pin)
 {
-    return getLink(pin);
+    if (get_type(pin) == InputType)
+        return getLink(pin);
+    return Undefined;
 }

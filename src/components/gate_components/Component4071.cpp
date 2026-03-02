@@ -3,6 +3,7 @@
 ** nanotekspice
 ** File description:
 ** Component4071
+** this is kept here to show how it was before i made the AGateComponent
 */
 
 /*
