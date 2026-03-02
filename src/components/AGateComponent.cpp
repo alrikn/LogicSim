@@ -6,6 +6,7 @@
 */
 
 #include "AGateComponent.hpp"
+#include "IComponent.hpp"
 #include <unordered_set>
 
 nts::AGateComponent::AGateComponent(const std::vector<GateInfo>& gateInfos,
@@ -72,8 +73,12 @@ nts::Tristate nts::AGateComponent::compute(size_t pin)
         //forward the comput to the inside gate
         return holder.comp->compute(holder.subOutputPin);
     }
+
+    if (get_type(pin) == InputType)
+        return getLink(pin);
+
     //default behaviour on gate (cus mini gate neeed acces to inputs so the'll call on our inputs)
     //also a way to going over the overwriting of computs
-    return AComponent::compute(pin);
+    return Undefined;
 }
 
