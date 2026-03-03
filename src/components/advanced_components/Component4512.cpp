@@ -77,17 +77,22 @@ nts :: Tristate nts::Component4512::compute ( std :: size_t pin )
 {
     if (pin != 14) //the return pin
         return Undefined;
-    if (getLink(15) == nts::True) //IF OE is high, output is Hi-Z (Undefined)
+    if (getLink(15) == nts::False) //this might be the opposite since there is a _ on top of the OE symbol in the datasheet
         return Undefined;
     if (getLink(10) == nts::True) //IF Inhibit is high, output is 0
         return False;
     //we build the index of the input we need to return based on the address inputs
     int index = 0;
-    if (getLink(13) == nts::True) //C is the most significant bit
+    Tristate possibilities[3] = {getLink(13), getLink(12), getLink(11)};
+    for (int i = 0; i < 3; i++) {
+        if (possibilities[i] == Undefined) //if one of the address inputs is undefined, the output is undefined
+            return Undefined;
+    }
+    if (possibilities[0] == nts::True) //C is the most significant bit
         index |= 4;
-    if (getLink(12) == nts::True) //B is the middle bit
+    if (possibilities[1] == nts::True) //B is the middle bit
         index |= 2;
-    if (getLink(11) == nts::True) //A is the least significant bit
+    if (possibilities[2] == nts::True) //A is the least significant bit
         index |= 1;
     return getLink(index + 1); //we return the value of the input at the
     //index we just computed (we add 1 because our inputs are 1-indexed)

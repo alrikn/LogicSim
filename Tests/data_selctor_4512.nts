@@ -1,0 +1,45 @@
+# Admiral Business Machines 1954-2042
+# 4512 - 8 Channel Data Selector
+
+.chipsets:
+false           x0
+true            x1
+false           x2
+false           x3
+false           x4
+true            x5
+false           x6
+false           x7
+
+true            a       # A (LSB)
+false           b       # B
+true            c       # C (MSB)
+
+false           inhibit # pin 10
+false           oe      # pin 15
+
+output          out
+4512            sel
+
+.links:
+# Data inputs (X0-X7)
+x0:1            sel:1
+x1:1            sel:2
+x2:1            sel:3
+x3:1            sel:4
+x4:1            sel:5
+x5:1            sel:6
+x6:1            sel:7
+x7:1            sel:8
+
+# Address inputs
+a:1             sel:11
+b:1             sel:12
+c:1             sel:13
+
+# Control inputs
+inhibit:1       sel:10
+oe:1            sel:15
+
+# Output
+out:1           sel:14
