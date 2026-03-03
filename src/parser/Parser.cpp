@@ -207,6 +207,7 @@ void nts::Parser::parse_link_line(const std::string &line)
 void nts::Parser::parse_chipsets()
 {
     std::string line;
+    //TODO: if chipsets is empty make an error
 
     while(std::getline(file_ptr, line)) {
         std::string t = trim(remove_inline_comment(line));
@@ -225,6 +226,10 @@ void nts::Parser::parse_chipsets()
         }
         parse_chipset_line(line);
     }
+    //if chipset is empty (as in no components were declared) throw error
+    //if (circuit.getComponents().empty())
+    //    throw std::runtime_error("No components declared in .chipsets section");
+
 }
 
 void nts::Parser::parse_links()

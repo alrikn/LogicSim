@@ -24,7 +24,6 @@ void nts::AComponent::simulate(size_t tick)
 //set da link
 void nts::AComponent::setLink(size_t pin, nts::IComponent &other, size_t otherPin)
 {
-    //TODO: you should be able to connect may input pins to a single output
     //this means than an output may be linked to multiple inputs, but an input may only be linked to a single output.
 
     //if (get_type(pin) == InputType && other.get_type(otherPin) == InputType) { //this will throw an error (cus of the gates so the check has to be done in parser)
