@@ -22,14 +22,6 @@ nts :: Tristate nts::NotComponent::compute ( std :: size_t pin )
         return Undefined;
     auto input = getLink(1);
 
-    switch (input) {
-        case Undefined:
-            return Undefined;
-        case True:
-            return False;
-        case False:
-            return True;
-    }
-    return Undefined;
+    return !input;
 }
 

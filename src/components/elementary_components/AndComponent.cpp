@@ -23,11 +23,6 @@ nts :: Tristate nts::AndComponent::compute ( std :: size_t pin )
         return Undefined;
     auto a = getLink(1);
     auto b = getLink(2);
-    
-    //most scuffed way of doing and statement, but can't think of anything better
-    if (a == Undefined || b == Undefined)
-        return Undefined;
-    if (a == False || b == False)
-        return False;
-    return True;
+
+    return a & b;
 }

@@ -35,5 +35,10 @@ class IComponent
         virtual void setLink ( std :: size_t pin , nts :: IComponent & other , std :: size_t otherPin ) = 0;
         virtual nts::PinType get_type(std::size_t pin) = 0; //necssary for the parser
 };
+
+Tristate operator&(Tristate a, Tristate b);
+Tristate operator|(Tristate a, Tristate b);
+Tristate operator^(Tristate a, Tristate b);
+Tristate operator!(Tristate a);
 }
 #endif

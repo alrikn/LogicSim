@@ -7,6 +7,7 @@
 
 #include "AGateComponent.hpp"
 #include "IComponent.hpp"
+#include <cstdio>
 #include <unordered_set>
 
 nts::AGateComponent::AGateComponent(const std::vector<GateInfo>& gateInfos,
@@ -79,6 +80,7 @@ nts::Tristate nts::AGateComponent::compute(size_t pin)
 
     //default behaviour on gate (cus mini gate neeed acces to inputs so the'll call on our inputs)
     //also a way to going over the overwriting of computs
+    //printf("Warning. getting to undefined AGateComponent");
     return Undefined;
 }
 

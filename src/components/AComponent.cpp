@@ -93,5 +93,6 @@ nts::Tristate nts::AComponent::compute(std::size_t pin)
 {
     if (get_type(pin) == InputType)
         return getLink(pin);
+    //printf("Warning. getting to undefined AComponent");
     return Undefined;
 }

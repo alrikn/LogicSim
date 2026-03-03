@@ -24,9 +24,5 @@ nts :: Tristate nts::NorComponent::compute ( std :: size_t pin )
     auto a = getLink(1);
     auto b = getLink(2);
 
-    if (a == Undefined || b == Undefined)
-        return Undefined;
-    if (a == False && b == False)
-        return True;
-    return False;
+    return !(a | b);
 }
