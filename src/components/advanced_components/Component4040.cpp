@@ -7,6 +7,7 @@
 
 #include "Component4040.hpp"
 #include "IComponent.hpp"
+#include <cstdio>
 
 /*
 # 12-bits Binary Counter (4040)
@@ -40,10 +41,10 @@ nts::Component4040::Component4040()
         {9, OutputType}, //out_00
         {10, InputType}, //cl_clock
         {11, InputType}, //in_reset
-        {12, InputType},//out_08
-        {13, InputType}, //out_07
-        {14, InputType}, //out_09
-        {15, InputType}, //out_10
+        {12, OutputType},//out_08
+        {13, OutputType}, //out_07
+        {14, OutputType}, //out_09
+        {15, OutputType}, //out_10
         {16, UndefinedType} //ignored
     };
 }
@@ -51,25 +52,47 @@ nts::Component4040::Component4040()
 void nts::Component4040::simulate(size_t tick)
 {
     //we need to update the counter on the rising edge of the clock, but we also need to update the outputs on every tick since they depend on the counter value
-    compute(1); //this will update the outputs based on the current counter value
+    compute(0); //this will update the outputs based on the current counter value
 }
 
 
-nts::Tristate nts::Component4040::compute(size_t pin)
+nts::Tristate nts::Component4040::compute(size_t pin) //this is causing a stack
 {
-    nts::Tristate clock = compute(10);
-    nts::Tristate reset = compute(11);
+    nts::Tristate clock = getLink(10);
+    nts::Tristate reset = getLink(11);
 
     if (reset == nts::Tristate::True) {
         counter = 0;
-    } else if (clock == nts::Tristate::True && last_clock == nts::Tristate::False) {
-        counter = (counter + 1) % 4096; // 12 bits counter
-        last_clock = clock;
-    }
-    //now we calculate the output based on the counter value
-    if (pin >= 1 && pin <= 11) {
-        //what is goin on here is we find the bit that we need to return (11 - pin) we shit a bit by that number of positions on the counter, and the we do bin and to get a bollean out of that
-        return (counter & (1 << (11 - pin))) ? nts::Tristate::True : nts::Tristate::False; //this is a bit hacky but it works, we check if the bit at the position of the pin is 1 or 0 and return true or false accordingly
-    } else
+        if (get_type(size_t(pin)) == OutputType)
+            return nts::Tristate::False;
         return nts::Tristate::Undefined;
+    }
+    //on rising edge of clock, no change
+    //on falling edge increment counter
+    if (clock == nts::Tristate::False && last_clock == nts::Tristate::True) {
+        counter = (counter + 1) % 4096; // 12 bits counter
+    }
+    //printf("counter = %zu\n", counter);
+    last_clock = clock;
+
+    int bit = -1;
+
+    switch (pin) {
+        case 9:  bit = 0; break;
+        case 7:  bit = 1; break;
+        case 6:  bit = 2; break;
+        case 5:  bit = 3; break;
+        case 3:  bit = 4; break;
+        case 2:  bit = 5; break;
+        case 4:  bit = 6; break;
+        case 13: bit = 7; break;
+        case 12: bit = 8; break;
+        case 14: bit = 9; break;
+        case 15: bit = 10; break;
+        case 1:  bit = 11; break;
+    }
+
+    if (bit != -1)
+        return (counter & (1 << bit)) ? nts::Tristate::True : nts::Tristate::False;
+    return nts::Tristate::Undefined;
 }
