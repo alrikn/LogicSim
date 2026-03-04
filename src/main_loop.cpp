@@ -170,6 +170,8 @@ int CLI_interface::run_loop(Circuit &circuit)
 {
     _circuit = &circuit;
     std::string raw;
+    if (circuit.isEmpty())
+        throw std::runtime_error("Circuit is empty. Nothing to simulate.");
 
     handle_simulate(); //simulate once at start to update all the outputs based on the initial inputs before we display for the first time
     while (true) {

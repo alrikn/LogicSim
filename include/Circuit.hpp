@@ -45,7 +45,7 @@ class Circuit {
 
         ClassType getType(const std::string& name);
 
-
+        bool isEmpty() const { return components.empty(); }
         void display();
 
 };
